@@ -15,4 +15,8 @@
           android:title="@string/action_observable_actions"
           android:orderInCategory="101"
           app:showAsAction="never"/>
+    <item android:id="@+id/action_observable_subscriber"
+          android:title="@string/action_observable_subscriber"
+          android:orderInCategory="102"
+          app:showAsAction="never"/>
 </menu>

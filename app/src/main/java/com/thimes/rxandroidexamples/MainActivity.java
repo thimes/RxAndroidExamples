@@ -2,6 +2,7 @@ package com.thimes.rxandroidexamples;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -9,12 +10,15 @@ import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import rx.Observable;
+import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 
 public class MainActivity extends ActionBarActivity {
+
+    private static final String TAG = "com.thimes.rxandroidexamples.MainActivity";
 
     @InjectView(R.id.only_text_view) TextView textView;
 
@@ -44,7 +48,6 @@ public class MainActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-
         switch(id) {
             case R.id.action_clear:
                 resetTextView();
@@ -55,9 +58,35 @@ public class MainActivity extends ActionBarActivity {
             case R.id.action_observable_actions:
                 createSimpleObservableWithActions();
                 return true;
+            case R.id.action_observable_subscriber:
+                createSimpleObservableWithSubscriber();
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void createSimpleObservableWithSubscriber() {
+        final StringBuilder sb = new StringBuilder();
+        Subscriber<Integer> subscriber = new Subscriber<Integer>() {
+            @Override
+            public void onCompleted() {
+                textView.setText("complete, done here");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                textView.setText("ERROR, ERROR, ERROR:\n" + e.getMessage());
+            }
+
+            @Override
+            public void onNext(Integer integer) {
+                sb.append("received ").append(integer).append("\n");
+                textView.setText(sb.toString());
+                Log.v(TAG, sb.toString());
+            }
+        };
+        createSimpleObservable().subscribe(subscriber);
     }
 
     private void createSimpleObservableWithActions() {

@@ -53,18 +53,22 @@ public class MainActivity extends ActionBarActivity {
                 createSimpleObservable();
                 return true;
             case R.id.action_observable_actions:
-                final StringBuilder sb = new StringBuilder();
-                createSimpleObservable().subscribe(new Action1<Integer>() {
-                    @Override
-                    public void call(Integer integer) {
-                        sb.append("received ").append(integer).append("\n");
-                        textView.setText(sb.toString());
-                    }
-                });
+                createSimpleObservableWithActions();
                 return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void createSimpleObservableWithActions() {
+        final StringBuilder sb = new StringBuilder();
+        createSimpleObservable().subscribe(new Action1<Integer>() {
+            @Override
+            public void call(Integer integer) {
+                sb.append("received ").append(integer).append("\n");
+                textView.setText(sb.toString());
+            }
+        });
     }
 
     private Observable<Integer> createSimpleObservable() {

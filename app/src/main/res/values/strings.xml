@@ -6,5 +6,6 @@
     <string name="action_settings">Settings</string>
     <string name="action_simple_observable">Simple Observable</string>
     <string name="action_observable_actions">Subscribe (actions)</string>
+    <string name="action_observable_actions2">Subscribe (actions(2))</string>
 
 </resources>

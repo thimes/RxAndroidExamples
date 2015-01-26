@@ -1,9 +1,13 @@
 package com.thimes.rxandroidexamples;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -29,11 +33,19 @@ public class MainActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_simple_observable) {
+            createSimpleObservable();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void createSimpleObservable() {
+        Observable<Integer> simple =
+                Observable
+                        .range(0, 10)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread());
     }
 }

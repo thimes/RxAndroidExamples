@@ -8,5 +8,6 @@
     <string name="action_observable_actions">Subscribe (actions)</string>
     <string name="action_observable_actions2">Subscribe (actions(2))</string>
     <string name="action_observable_subscriber">Subscribe (subscriber)</string>
+    <string name="action_observable_function">Subscribe (function)</string>
 
 </resources>

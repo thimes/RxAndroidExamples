@@ -13,6 +13,7 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 
@@ -48,7 +49,7 @@ public class MainActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        switch(id) {
+        switch (id) {
             case R.id.action_clear:
                 resetTextView();
                 return true;
@@ -61,9 +62,41 @@ public class MainActivity extends ActionBarActivity {
             case R.id.action_observable_subscriber:
                 createSimpleObservableWithSubscriber();
                 return true;
+            case R.id.action_observable_function:
+                createSimpleObservableWithFunction();
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void createSimpleObservableWithFunction() {
+        Func1<? super Integer, ? super Integer> negator = new Func1<Integer, Object>() {
+            @Override
+            public Integer call(Integer integer) {
+                return -integer;
+            }
+        };
+
+        final StringBuilder sb = new StringBuilder();
+        createSimpleObservable().map(negator).subscribe(new Action1<Object>() {
+            @Override
+            public void call(Object o) {
+                sb.append("received ").append(o.toString()).append("\n");
+                textView.setText(sb.toString());
+            }
+        });
+    }
+
+    private Action1<Integer> createTextUpdatingAction() {
+        final StringBuilder sb = new StringBuilder();
+        return new Action1<Integer>() {
+            @Override
+            public void call(Integer integer) {
+                sb.append("received ").append(integer).append("\n");
+                textView.setText(sb.toString());
+            }
+        };
     }
 
     private void createSimpleObservableWithSubscriber() {

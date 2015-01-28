@@ -27,4 +27,8 @@
           android:title="@string/action_operators"
           android:orderInCategory="200"
           app:showAsAction="never"/>
+    <item android:id="@+id/action_subjects"
+          android:title="@string/action_subjects"
+          android:orderInCategory="200"
+          app:showAsAction="never"/>
 </menu>

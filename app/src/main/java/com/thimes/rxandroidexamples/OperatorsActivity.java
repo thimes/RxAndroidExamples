@@ -2,6 +2,7 @@ package com.thimes.rxandroidexamples;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,8 +17,10 @@ import butterknife.InjectView;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
+import rx.subjects.BehaviorSubject;
 
 
 public class OperatorsActivity extends ActionBarActivity {
@@ -32,7 +35,28 @@ public class OperatorsActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
         resetTextView();
+
+        Observable.create(new Observable.OnSubscribe<String>() {
+            @Override
+            public void call(Subscriber<? super String> subscriber) {
+                for (String s : new String[] {"B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"}) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    subscriber.onNext(s);
+                }
+            }
+        }).subscribeOn(Schedulers.newThread()).subscribe(new Action1<String>() {
+            @Override
+            public void call(String s) {
+                alphabetSubject.onNext(s);
+            }
+        });
     }
+
+    BehaviorSubject<String> alphabetSubject = BehaviorSubject.create("A");
 
     private void resetTextView() {
         textView.setText("Let the operations begin!");
@@ -44,6 +68,8 @@ public class OperatorsActivity extends ActionBarActivity {
         getMenuInflater().inflate(R.menu.menu_operators, menu);
         return true;
     }
+
+    int i = 1;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -63,8 +89,9 @@ public class OperatorsActivity extends ActionBarActivity {
 //                tryFlatMap();
 //                tryTake();
 //                tryBuffer();
-                trySample();
+//                trySample();
                 // try your favorite operator...!
+                subjectExample("ABCDEFGHIJ".split("")[i++]);
                 return true;
         }
 
@@ -225,5 +252,13 @@ public class OperatorsActivity extends ActionBarActivity {
         };
     }
 
+    private void subjectExample(final String key) {
+        alphabetSubject.observeOn(Schedulers.newThread()).subscribeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<String>() {
+            @Override
+            public void call(String s) {
+                Log.v(key, s);
+            }
+        });
+    }
 
 }

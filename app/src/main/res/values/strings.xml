@@ -11,5 +11,6 @@
     <string name="action_observable_function">Subscribe (function)</string>
     <string name="action_operators">Operators</string>
     <string name="action_try_operator">Try operator</string>
+    <string name="action_subjects">Subjects</string>
 
 </resources>

@@ -69,6 +69,9 @@ public class MainActivity extends ActionBarActivity {
             case R.id.action_operators:
                 startActivity(new Intent(this, OperatorsActivity.class));
                 return true;
+            case R.id.action_subjects:
+                startActivity(new Intent(this, SubjectActivity.class));
+                return true;
         }
 
         return super.onOptionsItemSelected(item);

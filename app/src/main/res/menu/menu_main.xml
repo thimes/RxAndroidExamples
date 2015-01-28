@@ -23,4 +23,8 @@
           android:title="@string/action_observable_function"
           android:orderInCategory="103"
           app:showAsAction="never"/>
+    <item android:id="@+id/action_operators"
+          android:title="@string/action_operators"
+          android:orderInCategory="200"
+          app:showAsAction="never"/>
 </menu>

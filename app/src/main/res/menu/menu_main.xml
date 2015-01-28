@@ -31,4 +31,8 @@
           android:title="@string/action_subjects"
           android:orderInCategory="200"
           app:showAsAction="never"/>
+    <item android:id="@+id/action_retrofit"
+          android:title="@string/action_retrofit"
+          android:orderInCategory="200"
+          app:showAsAction="never"/>
 </menu>

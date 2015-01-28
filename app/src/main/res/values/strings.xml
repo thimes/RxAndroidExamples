@@ -12,5 +12,7 @@
     <string name="action_operators">Operators</string>
     <string name="action_try_operator">Try operator</string>
     <string name="action_subjects">Subjects</string>
+    <string name="action_github">Get github info</string>
+    <string name="action_retrofit">Retrofit</string>
 
 </resources>

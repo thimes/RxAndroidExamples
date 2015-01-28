@@ -72,6 +72,9 @@ public class MainActivity extends ActionBarActivity {
             case R.id.action_subjects:
                 startActivity(new Intent(this, SubjectActivity.class));
                 return true;
+            case R.id.action_retrofit:
+                startActivity(new Intent(this, RetrofitActivity.class));
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
